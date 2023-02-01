@@ -1,0 +1,38 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.list {
+  background-color: goldenrod;
+  min-height: 400px;
+  min-width: 300px;
+  border-radius: 2em;
+  padding: 10px;
+  margin: 10px;
+}
+
+.item {
+  list-style-type: none;
+  background-color: yellow;
+  min-height: 40px;
+  max-width: 90%;
+  border-radius: 1em;
+  margin: 10px;
+}
+
+.item2 {
+  list-style-type: none;
+  background-color: green;
+  min-height: 40px;
+  max-width: 90%;
+  border-radius: 1em;
+  margin: 10px;
+}
+
+.content {
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  margin: 0 auto;
+}
