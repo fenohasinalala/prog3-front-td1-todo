@@ -1,53 +1,35 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import ToDoForm from "../components/ToDoForm";
+import userEvent from "@testing-library/user-event";
 import renderer from "react-test-renderer";
 
-test("It should show Item name", () => {
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
-  render(<Items itemInfo={item1} />);
-  const todo = screen.getByText("Do test with jest");
-  expect(todo).toBeInTheDocument();
+test("It should show an Input textbox", () => {
+  const mockOnSubmitAction = jest.fn();
+  render(<ToDoForm onSubmitAction={mockOnSubmitAction} />);
+  const input = screen.getByRole("textbox", /newTodo/i);
+  expect(input).toBeInTheDocument();
 });
 
-test("It should show checkBox for None Completed Item", () => {
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
-  render(<Items itemInfo={item1} />);
-  const ckeckbox = screen.getByRole("checkbox");
-  expect(ckeckbox).toBeInTheDocument();
-  expect(ckeckbox).not.toBeChecked();
+test("It should call props function on submit if text lenght is higher than 0", () => {
+  const mockOnSubmitAction = jest.fn();
+  render(<ToDoForm onSubmitAction={mockOnSubmitAction} />);
+  const input = screen.queryByRole("textbox", /newTodo/i);
+  userEvent.type(input, "text{enter}");
+  expect(mockOnSubmitAction).toBeCalledTimes(1);
 });
 
-test("It shouldn't show checkBox for completed Item", () => {
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
-  render(<Items itemInfo={item1} />);
-  expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+test("It shouldn't call props function on submit if text lenght equals 0", () => {
+  const mockOnSubmitAction = jest.fn();
+  render(<ToDoForm onSubmitAction={mockOnSubmitAction} />);
+  const input = screen.queryByRole("textbox", /newTodo/i);
+  userEvent.type(input, "{enter}");
+  expect(mockOnSubmitAction).not.toHaveBeenCalled();
 });
 
-test("It should use props function when click the checkbox", () => {
-  const mockActionClick = jest.fn();
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
-  render(<Items itemInfo={item1} actionClick={mockActionClick} />);
-  const ckeckbox = screen.getByRole("checkbox");
-  fireEvent.click(ckeckbox);
-  expect(mockActionClick.mock.calls.length).toBe(1);
-});
-
-it("renders one none completed Item", () => {
-  const mockActionClick = jest.fn();
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
+it("renders list of TO DO", () => {
+  const mockOnSubmitAction = jest.fn();
   const component = renderer.create(
-    <Items itemInfo={item1} actionClick={mockActionClick} />
-  );
-
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-it("renders one completed Item", () => {
-  const mockActionClick = jest.fn();
-  const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
-  const component = renderer.create(
-    <Items itemInfo={item1} actionClick={mockActionClick} />
+    <ToDoForm onSubmitAction={mockOnSubmitAction} />
   );
 
   let tree = component.toJSON();

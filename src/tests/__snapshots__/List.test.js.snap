@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List renders list of DONE 1`] = `
+<div
+  className="list"
+>
+  <h1>
+    DONE
+  </h1>
+  <ul />
+</div>
+`;
+
+exports[`List renders list of TO DO 1`] = `
+<div
+  className="list"
+>
+  <h1>
+    TO DO
+  </h1>
+  <ul />
+</div>
+`;

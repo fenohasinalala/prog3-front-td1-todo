@@ -18,6 +18,7 @@ exports[`renders the landing page 1`] = `
         onSubmit={[Function]}
       >
         <input
+          name="newTodo"
           onChange={[Function]}
           placeholder="Ajouter un Item"
           type="text"

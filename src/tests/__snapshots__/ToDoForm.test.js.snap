@@ -1,21 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders one completed Item 1`] = `
-<li
-  className="item"
+exports[`renders list of TO DO 1`] = `
+<form
+  action="submit"
+  onSubmit={[Function]}
 >
-  Do test with jest
-</li>
-`;
-
-exports[`renders one none completed Item 1`] = `
-<li
-  className="item2"
->
-  Do test with jest
   <input
+    name="newTodo"
     onChange={[Function]}
-    type="checkbox"
+    placeholder="Ajouter un Item"
+    type="text"
+    value=""
   />
-</li>
+</form>
 `;

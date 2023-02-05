@@ -26,6 +26,7 @@ function ToDoForm({ onSubmitAction }) {
   return (
     <form action="submit" onSubmit={handleSubmit}>
       <input
+        name="newTodo"
         type="text"
         value={newItem}
         placeholder="Ajouter un Item"
