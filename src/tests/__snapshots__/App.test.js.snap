@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the landing page 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="content"
+  >
+    <div
+      className="list"
+    >
+      <h1>
+        TO DO
+      </h1>
+      <form
+        action="submit"
+        onSubmit={[Function]}
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Ajouter un Item"
+          type="text"
+          value=""
+        />
+      </form>
+      <ul />
+    </div>
+    <div
+      className="list"
+    >
+      <h1>
+        DONE
+      </h1>
+      <ul />
+    </div>
+  </div>
+</div>
+`;
