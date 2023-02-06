@@ -5,26 +5,27 @@ import List from "../components/List";
 import ToDoForm from "../components/ToDoForm";
 import renderer from "react-test-renderer";
 
-jest.mock("../components/Items", () => ({
-  __esModule: true,
-  default: jest.fn(() => <div>Items</div>),
-}));
+const mockItems = jest.fn();
+const mockToDoForm = mocked(ToDoForm);
+
+jest.mock("../components/Items", () => (props) => {
+  mockItems(props);
+  return <mock-Items />;
+});
 
 jest.mock("../components/ToDoForm", () => ({
   __esModule: true,
   default: jest.fn(() => <div>ToDoForm</div>),
 }));
 
-const mockItems = mocked(Items);
-const mockToDoForm = mocked(ToDoForm);
-
 const mockToDone = jest.fn();
 const mockAddItem = jest.fn();
 
+const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
+const item2 = { id: 2, nom: "Do test homework", isComplet: false };
+
 describe("List", () => {
   test("It should display the input textbox if the title is TO DO", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
-    const item2 = { id: 2, nom: "Do test homework", isComplet: false };
     render(
       <List
         title={"TO DO"}
@@ -38,8 +39,6 @@ describe("List", () => {
   });
 
   test("It should not display the input textbox if the title is different from TO DO", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
-    const item2 = { id: 2, nom: "Do test homework", isComplet: true };
     render(
       <List
         title={"DONE"}
@@ -52,7 +51,6 @@ describe("List", () => {
   });
 
   test("It should display one item", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
     render(
       <List
         title={"DONE"}
@@ -62,11 +60,14 @@ describe("List", () => {
       />
     );
     expect(mockItems).toHaveBeenCalledTimes(1);
+    expect(mockItems).toHaveBeenCalledWith(
+      expect.objectContaining({
+        itemInfo: { id: 1, nom: "Do test with jest", isComplet: false },
+      })
+    );
   });
 
   test("It should display many items", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
-    const item2 = { id: 2, nom: "Do test homework", isComplet: true };
     render(
       <List
         title={"DONE"}
@@ -76,11 +77,19 @@ describe("List", () => {
       />
     );
     expect(mockItems).toHaveBeenCalledTimes(2);
+    expect(mockItems).toHaveBeenCalledWith(
+      expect.objectContaining({
+        itemInfo: { id: 1, nom: "Do test with jest", isComplet: false },
+      })
+    );
+    expect(mockItems).toHaveBeenCalledWith(
+      expect.objectContaining({
+        itemInfo: { id: 2, nom: "Do test homework", isComplet: false },
+      })
+    );
   });
 
   it("renders list of TO DO", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: false };
-    const item2 = { id: 2, nom: "Do test homework", isComplet: false };
     const component = renderer.create(
       <List
         title={"TO DO"}
@@ -95,8 +104,6 @@ describe("List", () => {
   });
 
   it("renders list of DONE", () => {
-    const item1 = { id: 1, nom: "Do test with jest", isComplet: true };
-    const item2 = { id: 2, nom: "Do test homework", isComplet: true };
     const component = renderer.create(
       <List
         title={"DONE"}
