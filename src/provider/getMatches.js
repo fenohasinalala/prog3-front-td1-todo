@@ -1,13 +1,21 @@
-import axios from "axios";
+import Axios from "axios";
+
+function AxiosInstance() {
+  return Axios.create({
+    baseURL: "http://localhost:8080",
+  });
+}
 
 export const getMatches = async () => {
   try {
-    const client = axios.create({
-      baseURL: "http://localhost:8080",
-    });
+    const client = AxiosInstance();
+    return client.get("/matches");
+  } catch (error) {}
+};
 
-    client.get("/matches").then((response) => {
-      console.log(response);
-    });
+export const getMatchesById = async (id) => {
+  try {
+    const client = AxiosInstance();
+    return client.get(`matches/${id}`);
   } catch (error) {}
 };
