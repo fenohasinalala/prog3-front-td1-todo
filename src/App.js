@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import List from "./components/List";
+import { getMatches } from "./provider/getMatches";
 
 export default function App() {
   const [toDos, setToDos] = useState([]);
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <button onClick={() => getMatches()}>getMatches</button>
       <div className="content">
         <List
           title={"TO DO"}
